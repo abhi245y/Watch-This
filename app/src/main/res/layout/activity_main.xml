@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivity"
+    tools:ignore="HardcodedText">
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="91dp"
+        android:layout_height="40dp"
+        android:text="search"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/qurey_index"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/qurey_index"
+        app:layout_constraintTop_toTopOf="@+id/qurey_index" />
+
+    <EditText
+        android:id="@+id/qurey_index"
+        android:layout_width="290dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:hint="Enter Movie Name"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginStart="2dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/homeVerticalRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qurey_index" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

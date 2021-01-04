@@ -1,0 +1,28 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppBaseTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#000000</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#FFFFFF</item>
+        <item name="colorControlActivated">#FF9800</item>
+    </style>
+
+    <style name= "AppTheme" parent= "AppBaseTheme" >
+        <item name= "android:textViewStyle" > @style/TextViewStyle </item>
+        <item name= "android:buttonStyle" > @style/ButtonStyle </item>
+    </style>
+
+    <style name= "TextViewStyle" parent= "android:Widget.TextView" >
+        <item name= "android:fontFamily" > @font/netflix_sans_medium </item>
+    </style>
+    <style name= "ButtonStyle" parent= "android:Widget.Holo.Button" >
+        <item name= "android:fontFamily" > @font/netflix_sans_medium </item>
+    </style>
+
+</resources>

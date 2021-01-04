@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="250dp"
+    android:layout_height="166dp"
+    android:layout_margin="4dp"
+    tools:ignore="HardcodedText">
+
+    <RelativeLayout
+        android:id="@+id/imageLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp">
+
+            <ImageView
+                android:id="@+id/similar_movie_thumbnail"
+                android:layout_width="249.2dp"
+                android:layout_height="140dp"
+                android:background="@drawable/movie_card_thumpnail" />
+        </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="250dp"
+            android:layout_height="19.2dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/similar_movie_name"
+                android:layout_width="wrap_content"
+                android:layout_height="19.2dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="5dp"
+                android:layout_toStartOf="@+id/similar_movie_rating"
+                android:text="@string/movie"
+                android:textSize="16.026sp" />
+
+            <TextView
+                android:id="@+id/similar_movie_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="19.2dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="0dp"
+                android:text="80%"
+                android:textColor="#46D369"
+                android:textSize="16.026sp" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>
