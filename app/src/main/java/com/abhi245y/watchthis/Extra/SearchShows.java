@@ -73,15 +73,13 @@ public class SearchShows {
             public void onResponse(Call<TMDbGetImagesModel> call, Response<TMDbGetImagesModel> response) {
                 if (response.isSuccessful()) {
                     TMDbGetImagesModel res = response.body();
-//                    for (TMDbGetImagesModel.BackdropsBean backdropsBean : res.getBackdrops()) {
-                        String fileLink = "https://image.tmdb.org/t/p/original"+res.getBackdrops().get(0).getFile_path();
+                    String fileLink = "https://image.tmdb.org/t/p/original"+res.getBackdrops().get(0).getFile_path();
                         Glide.with(applicationContext)
                                 .load(fileLink)
                                 .fitCenter()
                                 .into(backdrop);
 
                         Log.d("SearchShows","Getting Image >> Image Link: "+fileLink);
-//                    }
                     
                 }else {
                     Log.d("SearchShows","No response");
@@ -160,8 +158,6 @@ public class SearchShows {
                     }catch (Exception e){
                         e.printStackTrace();
                     }
-
-//                    Document doc = Jsoup.connect().get();
                 }else{
                     Log.d("SearchShows","No response");
                 }
@@ -213,12 +209,6 @@ public class SearchShows {
             @Override
             public void onFailure(Call<ArrayList<TelegramSearchModel>> call, Throwable t) {
                 Log.d("SearchShows","TG Failed");
-//                ArrayList<TelegramResultsModel> telegramResultsModels = new ArrayList<>();
-//                TelegramResultsModel telegramResultsModel = new TelegramResultsModel("@cc captain marvel 2019 720p bdrip tam tel hin eng esubs mkv","Captain Marvel (2019) [720p - BDRip - Original Audios [Tamil  Telugu  Hindi  Eng] - x264 - 1.1GB - ESubs]\\n\\n@CC_TamilDubbed | @CC_Links","1211507993","https://t.me/pmudbdeivomargeletmoviedbdumppmu/167530");
-//                telegramResultsModels.add(telegramResultsModel);
-//                WatchOptionsModel singleWatchOptionsModel = new WatchOptionsModel(telegramResultsModels,"telegram");
-//                watchOptionsModels.add(singleWatchOptionsModel);
-//                watchadaptor.notifyDataSetChanged();
                 t.printStackTrace();
             }
         });
