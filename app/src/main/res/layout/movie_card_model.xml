@@ -216,8 +216,8 @@
             android:layout_height="166dp"
             android:layout_marginTop="10dpdp"
             android:lineSpacingExtra="8dp"
-            app:layout_constraintStart_toStartOf="@+id/movie_overview"
-            app:layout_constraintTop_toBottomOf="@+id/recommendations"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recommendations" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

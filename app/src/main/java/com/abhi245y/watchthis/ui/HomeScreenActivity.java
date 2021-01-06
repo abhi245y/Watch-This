@@ -100,11 +100,11 @@ public class HomeScreenActivity extends AppCompatActivity implements MovieItemCl
             }
         });
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this,3));
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         homeHorizontalViewAdaptor  = new HomeHorizontalViewAdaptor(this,singleMovieInfo, this);
         LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
-        searchRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        searchRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         searchHomeViewAdaptor = new SearchHomeViewAdaptor(this, searchResultInfo, this) ;
         searchRecyclerView.setAdapter(searchHomeViewAdaptor);
 
@@ -170,8 +170,6 @@ public class HomeScreenActivity extends AppCompatActivity implements MovieItemCl
 
     private void searchMovie(int page, String movie_name){
         OMDbService omdbService = RetrofitBuild.getRetrofitOMDb().create(OMDbService.class);
-
-
         Call<OMDbSearchModel> apiResponse = omdbService.getMovieList(movie_name,page);
 
         apiResponse.enqueue(new Callback<OMDbSearchModel>() {
