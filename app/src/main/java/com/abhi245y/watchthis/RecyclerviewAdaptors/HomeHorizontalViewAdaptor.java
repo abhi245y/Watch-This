@@ -1,6 +1,8 @@
 package com.abhi245y.watchthis.RecyclerviewAdaptors;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ public class HomeHorizontalViewAdaptor extends RecyclerView.Adapter<HomeHorizont
     ArrayList<HomeHorizontalListModel> singleMovieInfo;
     MovieItemClickListener movieItemClickListener;
     boolean isClicked = false;
+    DisplayMetrics mMetrics =new DisplayMetrics();
 
     public HomeHorizontalViewAdaptor(Context context, ArrayList<HomeHorizontalListModel> singleMovieInfo, MovieItemClickListener listener) {
         this.context = context;
@@ -65,7 +68,11 @@ public class HomeHorizontalViewAdaptor extends RecyclerView.Adapter<HomeHorizont
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            mMetrics = context.getResources().getDisplayMetrics();
             poster = itemView.findViewById(R.id.movie_poster);
+            poster.setMaxHeight(mMetrics.heightPixels);
+            poster.setMaxWidth(mMetrics.widthPixels);
+            Log.d("MainActivity","DisplayMetrics: "+mMetrics.heightPixels+" x "+mMetrics.widthPixels);
             rating = itemView.findViewById(R.id.movie_rating);
             year = itemView.findViewById(R.id.movie_year);
             addMovie = itemView.findViewById(R.id.add_movie);

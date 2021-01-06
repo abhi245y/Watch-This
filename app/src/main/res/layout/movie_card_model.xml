@@ -64,10 +64,9 @@
             android:layout_width="120dp"
             android:layout_height="170dp"
             android:layout_marginStart="24dp"
-            android:background="@drawable/movie_card_thumpnail"
+            android:background="@drawable/tumb_big"
             android:outlineAmbientShadowColor="@android:color/white"
             android:scaleType="centerCrop"
-            android:src="@drawable/movie_ref_thump_low"
             android:transitionName="movieCardAnimation"
             app:layout_constraintBottom_toBottomOf="@+id/backdrop"
             app:layout_constraintStart_toStartOf="parent"
@@ -162,9 +161,9 @@
 
         <com.cooltechworks.views.shimmer.ShimmerRecyclerView
             android:id="@+id/_watch_option_shimmer_recycler_view"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="83dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:lineSpacingExtra="8dp"
             app:layout_constraintEnd_toEndOf="@+id/title_name"
             app:layout_constraintHorizontal_bias="0.0"
@@ -177,7 +176,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/WatchNowOptions"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="83dp"
             android:layout_marginTop="16dp"
             android:lineSpacingExtra="8dp"
@@ -214,8 +213,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/similarMoviesView"
             android:layout_width="930dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_height="166dp"
+            android:layout_marginTop="10dpdp"
             android:lineSpacingExtra="8dp"
             app:layout_constraintStart_toStartOf="@+id/movie_overview"
             app:layout_constraintTop_toBottomOf="@+id/recommendations"/>

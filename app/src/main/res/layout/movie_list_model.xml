@@ -6,23 +6,22 @@
     android:id="@+id/vertical_parent_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
+    android:layout_margin="1dp"
     android:background="@android:color/transparent">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="220dp"
         android:background="@android:color/transparent">
-
         <RelativeLayout
-            android:layout_width="160dp"
-            android:layout_height="227dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@android:color/transparent">
 
             <ImageView
                 android:id="@+id/movie_poster"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/movie_card_thumpnail"
+                android:background="@drawable/tumb_big"
                 android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -98,10 +97,8 @@
                 android:layout_alignTop="@+id/movie_rating"
                 android:layout_alignBottom="@+id/movie_rating"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="-1dp"
-                android:layout_marginEnd="11dp"
-                android:layout_marginBottom="-1dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginBottom="5dp"
                 android:text="2003"
                 android:textColor="@android:color/white"
                 android:textSize="9sp"

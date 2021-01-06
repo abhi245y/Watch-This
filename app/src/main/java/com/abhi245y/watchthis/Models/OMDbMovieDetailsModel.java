@@ -2,8 +2,11 @@ package com.abhi245y.watchthis.Models;
 
 import java.util.List;
 
-@lombok.NoArgsConstructor
-@lombok.Data
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@Data
 public class OMDbMovieDetailsModel {
 
 
@@ -61,8 +64,8 @@ public class OMDbMovieDetailsModel {
     private String Response;
     private List<RatingsBean> Ratings;
 
-    @lombok.NoArgsConstructor
-    @lombok.Data
+    @NoArgsConstructor
+    @Data
     public static class RatingsBean {
         /**
          * Source : Internet Movie Database
