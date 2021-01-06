@@ -24,7 +24,9 @@ import com.bumptech.glide.Glide;
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -150,21 +152,21 @@ public class SearchShows {
                                                 watchOptionsModels.add(singleWatchOptionsModel);
                                             }
                                         }
-                                        int old_id = 23456;
+                                        ArrayList<Integer> all_ids = new ArrayList<>();
                                         ArrayList<WatchOptionsModel> newNodupe = new ArrayList<>();
                                         for (WatchOptionsModel res: watchOptionsModels){
-                                            Log.d("SearchShows","Old Val: "+old_id);
+                                            Log.d("SearchShows","Old Val: "+all_ids);
                                             Log.d("SearchShows","Id's: "+res.getProvider_id());
-                                            if (old_id == res.getProvider_id()){
+                                            if (all_ids.contains(res.getProvider_id())){
                                                 Log.d("SearchShows","Dupe Found: "+res.getProvider_id());
-                                            }else {
-                                                old_id = res.getProvider_id();
+                                            }else{
+                                                all_ids.add(res.getProvider_id());
                                                 for (Map.Entry services: Constants.getProviderId().entrySet()){
                                                     if (services.getKey().equals(res.getProvider_id())){
                                                         newNodupe.add(res);
                                                     }
                                                 }
-                                                Log.d("SearchShows","Trying next Current one  "+res.getProvider_id()+" Old Val: "+old_id);
+                                                Log.d("SearchShows","Trying next Current one  "+res.getProvider_id()+" Old Val: "+all_ids);
                                             }
                                         }
                                         watchOptionsModels.clear();

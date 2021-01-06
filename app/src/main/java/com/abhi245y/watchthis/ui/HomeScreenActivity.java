@@ -100,7 +100,7 @@ public class HomeScreenActivity extends AppCompatActivity implements MovieItemCl
             }
         });
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerView.setLayoutManager(new GridLayoutManager(this,3));
         homeHorizontalViewAdaptor  = new HomeHorizontalViewAdaptor(this,singleMovieInfo, this);
         LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 

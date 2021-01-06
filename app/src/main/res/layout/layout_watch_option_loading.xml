@@ -16,7 +16,7 @@
 
     <View
         android:layout_width="65dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="@color/demo_dark_transparent" />
 
     <View
@@ -26,6 +26,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="3.5dp"
         android:layout_marginEnd="5dp"
+        android:layout_marginBottom="3dp"
         android:background="@color/demo_dark_transparent" />
 
     </LinearLayout>
