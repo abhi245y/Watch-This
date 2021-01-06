@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,9 +32,9 @@ import retrofit2.Response;
 
 public class SearchShows {
 
-    public static String show_name;
 
     public static JustWacthSearchModel.ItemsBean itemsBean;
+
 
     public static JustWacthSearchModel.ItemsBean getItemsBean() {
         return itemsBean;
@@ -103,25 +104,28 @@ public class SearchShows {
             @Override
             public void onResponse(Call<TMDbIDModel> call, Response<TMDbIDModel> response) {
                 if (response.isSuccessful()) {
+                    Log.d("SearchShows","GetWatchOptions Got TMdb ID");
                     TMDbIDModel res = response.body();
                     int TMDbID = res.getId();
 
-                    GetJustWatch(TMDbID, page, watchOptionsModels, watchadaptor, shimmerRecycler);
+
+                    GetJustWatch(TMDbID, page, watchOptionsModels, watchadaptor, shimmerRecycler, show_name);
 
                 }else {
-                    Log.d("SearchShows","No response");
+                    Log.d("SearchShows","GetWatchOptions No Response");
                 }
 
             }
 
             @Override
             public void onFailure(Call<TMDbIDModel> call, Throwable t) {
-                t.printStackTrace();
+                Log.d("SearchShows","GetWatchOptions No Response: "+t);
             }
         });
     }
 
-    public static void GetJustWatch(int TMDbID, int page, ArrayList<WatchOptionsModel> watchOptionsModels, WatchOptionsAdaptor watchadaptor, ShimmerRecyclerView shimmerRecycler){
+    public static void GetJustWatch(int TMDbID, int page, ArrayList<WatchOptionsModel> watchOptionsModels, WatchOptionsAdaptor watchOptionsAdaptor, ShimmerRecyclerView shimmerRecycler, String show_name){
+        Log.d("SearchShows","JustWatch Getting Watch Options");
         JustWatchService justWatchService = RetrofitBuild.getRetrofitJustWacth().create(JustWatchService.class);
         Call<JustWacthSearchModel> apiResponseCall=justWatchService
                 .getJustWatchPopular("{\"page_size\":25,\"page\":"+page+",\"query\":\""+show_name+"\",\"content_types\":[\"movie\"]}");
@@ -137,21 +141,41 @@ public class SearchShows {
                                     if (rating.getValue() == TMDbID) {
                                         Log.d("SearchShows","JustWatch Item Found: "+result.getTitle());
                                         for (JustWacthSearchModel.ItemsBean.OffersBean offersBean: result.getOffers()){
+
                                             if (offersBean.getMonetization_type().equals("flatrate")){
                                                 JustWacthSearchModel.ItemsBean.OffersBean.UrlsBean urlsBean = offersBean.getUrls();
                                                 String standardWeb = urlsBean.getStandard_web();
                                                 Log.d("SearchShows","standardWeb: "+standardWeb);
                                                 WatchOptionsModel singleWatchOptionsModel = new WatchOptionsModel("justWatch",standardWeb,offersBean.getMonetization_type(),offersBean.getProvider_id());
                                                 watchOptionsModels.add(singleWatchOptionsModel);
-                                                break;
                                             }
                                         }
-
+                                        int old_id = 23456;
+                                        ArrayList<WatchOptionsModel> newNodupe = new ArrayList<>();
+                                        for (WatchOptionsModel res: watchOptionsModels){
+                                            Log.d("SearchShows","Old Val: "+old_id);
+                                            Log.d("SearchShows","Id's: "+res.getProvider_id());
+                                            if (old_id == res.getProvider_id()){
+                                                Log.d("SearchShows","Dupe Found: "+res.getProvider_id());
+                                            }else {
+                                                old_id = res.getProvider_id();
+                                                for (Map.Entry services: Constants.getProviderId().entrySet()){
+                                                    if (services.getKey().equals(res.getProvider_id())){
+                                                        newNodupe.add(res);
+                                                    }
+                                                }
+                                                Log.d("SearchShows","Trying next Current one  "+res.getProvider_id()+" Old Val: "+old_id);
+                                            }
+                                        }
+                                        watchOptionsModels.clear();
+                                        watchOptionsModels.addAll(newNodupe);
                                         shimmerRecycler.setDemoChildCount(3-watchOptionsModels.size());
-                                        watchadaptor.notifyDataSetChanged();
-                                        break;
+                                        watchOptionsAdaptor.notifyDataSetChanged();
+//                                        searchTelegram(show_name,watchOptionsModels, watchOptionsAdaptor, shimmerRecycler);
+                                        Log.d("SearchShows", "WatchOptionsModel Size: " +watchOptionsModels.size());
+//                                        break;
                                     }
-                                    break;
+//                                    break;
                                 }
                             }
                         }
@@ -159,13 +183,12 @@ public class SearchShows {
                         e.printStackTrace();
                     }
                 }else{
-                    Log.d("SearchShows","No response");
+                    Log.d("SearchShows","Just Watch No response");
                 }
             }
-
             @Override
             public void onFailure(Call<JustWacthSearchModel> call, Throwable t) {
-                t.printStackTrace();
+                Log.d("SearchShows","Just Watch No response: "+t);
             }
         });
     }
@@ -173,7 +196,7 @@ public class SearchShows {
     public static void searchTelegram(String show_name, ArrayList<WatchOptionsModel> watchOptionsModels, WatchOptionsAdaptor watchadaptor, ShimmerRecyclerView shimmerRecycler){
         TelegramService telegramService = RetrofitBuild.getRetrofitTG().create(TelegramService.class);
         String movie_name = show_name.replaceAll(":","").replace(".","");
-        Log.d("SearchShows","Show Name: "+movie_name);
+        Log.d("SearchShows","Movie Name: "+movie_name);
         Call<ArrayList<TelegramSearchModel>> telegramServiceCall = telegramService.searchTelegram(movie_name);
 
         telegramServiceCall.enqueue(new Callback<ArrayList<TelegramSearchModel>>() {
@@ -185,7 +208,7 @@ public class SearchShows {
                     if (telegramSearchModel != null) {
                         ArrayList<TelegramResultsModel> telegramResultsModels = new ArrayList<>();
                         for (TelegramSearchModel result:telegramSearchModel){
-                            Log.d("SearchShows","TG results file name: "+result.getFile_name());
+//                            Log.d("SearchShows","TG results file name: "+result.getFile_name());
                             String tg_link = result.getPerma_link();
                             String file_name = result.getFile_name();
                             String caption = result.getCaption();
@@ -195,6 +218,7 @@ public class SearchShows {
                         }
                         WatchOptionsModel singleWatchOptionsModel = new WatchOptionsModel(telegramResultsModels,"telegram");
                         watchOptionsModels.add(singleWatchOptionsModel);
+                        Log.d("SearchShows", "Final WatchOptionsModel Size: " +watchOptionsModels.size());
                         shimmerRecycler.hideShimmerAdapter();
                         watchadaptor.notifyDataSetChanged();
                     }else {
@@ -245,21 +269,21 @@ public class SearchShows {
                                         SimilarMoviesViewAdaptor similarMoviesViewAdaptor, ShimmerRecyclerView similarMoviesShimmerRecyclerView){
         TMDbService tmDbService = RetrofitBuild.getRetrofitTMDb().create(TMDbService.class);
         Call<TMDbSimilarMoviesModel> tmDbSimilarMoviesModelCall = tmDbService.getSimilarMovies(movieId,Constants.getTMDb_API_KEY());
-        Log.d("SearchShows","Getting Similar Movies Movie ID: "+movieId);
+//        Log.d("SearchShows","Getting Similar Movies Movie ID: "+movieId);
         tmDbSimilarMoviesModelCall.enqueue(new Callback<TMDbSimilarMoviesModel>() {
             @Override
             public void onResponse(Call<TMDbSimilarMoviesModel> call, Response<TMDbSimilarMoviesModel> response) {
                 if (response.isSuccessful()){
                     TMDbSimilarMoviesModel tmDbSimilarMoviesModel = response.body();
                     if (tmDbSimilarMoviesModel != null) {
-                        Log.d("SearchShows","TMDbSimilarMoviesModel Array Not Null");
+                        Log.d("SearchShows","Found Similar Movies");
                         for (TMDbSimilarMoviesModel.ResultsBean res:tmDbSimilarMoviesModel.getResults()){
 
                             String thumbnail_url = "https://image.tmdb.org/t/p/w500"+ res.getBackdrop_path();
                             String rating = res.getVote_average().toString().replace(".","");
                             SimilarMoviesListModel similarMoviesModel = new SimilarMoviesListModel(res.getTitle(), rating, thumbnail_url, res);
                             similarMoviesListModels.add(similarMoviesModel);
-                            Log.d("SearchShows","Similar Movies: "+res.getTitle());
+//                            Log.d("SearchShows","Similar Movies: "+res.getTitle());
                         }
                         similarMoviesShimmerRecyclerView.hideShimmerAdapter();
                         similarMoviesViewAdaptor.notifyDataSetChanged();

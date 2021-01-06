@@ -6,24 +6,26 @@
     android:id="@+id/vertical_parent_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
+    android:layout_marginStart="6dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
     android:background="@android:color/transparent">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:background="@android:color/transparent">
 
         <RelativeLayout
-            android:layout_width="160dp"
-            android:layout_height="227dp"
+            android:layout_width="225dp"
+            android:layout_height="308dp"
             android:background="@android:color/transparent">
-
             <ImageView
                 android:id="@+id/movie_poster"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/movie_card_thumpnail"
-                android:scaleType="fitXY"
+                android:background="@drawable/card_thumbtitle"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

@@ -62,7 +62,7 @@ public class Constants {
         java.util.HashMap<Integer,Integer> providerId=new HashMap<>();
         providerId.put(8,430997);
         providerId.put(119,52449861);
-        providerId.put(377,174849096);
+//        providerId.put(377,174849096);
         providerId.put(122,174849096);
         providerId.put(220,85114140);
         providerId.put(232,93795879);

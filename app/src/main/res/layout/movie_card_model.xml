@@ -162,7 +162,7 @@
 
         <com.cooltechworks.views.shimmer.ShimmerRecyclerView
             android:id="@+id/_watch_option_shimmer_recycler_view"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="83dp"
             android:layout_marginTop="16dp"
             android:lineSpacingExtra="8dp"
@@ -177,7 +177,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/WatchNowOptions"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="83dp"
             android:layout_marginTop="16dp"
             android:lineSpacingExtra="8dp"
@@ -217,8 +217,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:lineSpacingExtra="8dp"
-            app:layout_constraintStart_toStartOf="@+id/movie_overview"
-            app:layout_constraintTop_toBottomOf="@+id/recommendations"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recommendations" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

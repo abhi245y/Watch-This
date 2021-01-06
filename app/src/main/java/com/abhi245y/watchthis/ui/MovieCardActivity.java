@@ -80,6 +80,7 @@ public class MovieCardActivity extends AppCompatActivity implements MovieItemCli
         similarMoviesView.setAdapter(similarMoviesViewAdaptor);
 
         watchOptionsShimmerRecyclerView = findViewById(R.id._watch_option_shimmer_recycler_view);
+//        watchOptionsShimmerRecyclerView.setDemoChildCount(3);
         watchOptionsShimmerRecyclerView.showShimmerAdapter();
 
         similarMoviesShimmerRecyclerView = findViewById(R.id.similar_movie_shimmer_recycler_view);
@@ -114,8 +115,9 @@ public class MovieCardActivity extends AppCompatActivity implements MovieItemCli
                     .load(backdrop_url)
                     .fitCenter()
                     .into(backdrop);
-            SearchShows.GetJustWatch(Integer.parseInt(movie_id),1,watchOptionsModels, watchOptionsAdaptor, watchOptionsShimmerRecyclerView);
-            SearchShows.GetSimilarMovies(movie_id, similarMoviesListModels, similarMoviesViewAdaptor, similarMoviesShimmerRecyclerView);
+           SearchShows.GetJustWatch(Integer.parseInt(movie_id),1,watchOptionsModels, watchOptionsAdaptor, watchOptionsShimmerRecyclerView, movie_name);
+           SearchShows.searchTelegram(movie_name,watchOptionsModels, watchOptionsAdaptor, watchOptionsShimmerRecyclerView);
+           SearchShows.GetSimilarMovies(movie_id, similarMoviesListModels, similarMoviesViewAdaptor, similarMoviesShimmerRecyclerView);
         }else{
             movie_id = getIntent().getStringExtra("IMDB_ID");
             ImdbID = movie_id;
@@ -124,6 +126,7 @@ public class MovieCardActivity extends AppCompatActivity implements MovieItemCli
             Log.d(TAG,"Query: "+movie_name+" Year: "+release_year+" ImdbId: "+movie_id);
             SearchShows.GetImagesLink(movie_id, backdrop, getApplicationContext());
             SearchShows.GetWatchOptions(movie_id,1,movie_name,watchOptionsModels, watchOptionsAdaptor, watchOptionsShimmerRecyclerView);
+            SearchShows.searchTelegram(movie_name,watchOptionsModels, watchOptionsAdaptor, watchOptionsShimmerRecyclerView);
             SearchShows.GetSimilarMoviesAlt(movie_id, similarMoviesListModels, similarMoviesViewAdaptor, similarMoviesShimmerRecyclerView);
         }
 //        Log.d(TAG,"Query: "+movie_name+" Year: "+release_year+" TMDb Id: "+getIntent().getStringExtra("Imdb_id"));
@@ -149,15 +152,9 @@ public class MovieCardActivity extends AppCompatActivity implements MovieItemCli
 //            LocalDate date = LocalDate.parse(release_year);
 //        }
         year.setText(String.valueOf(release_year));
-
-
-        SearchShows.searchTelegram(movie_name,watchOptionsModels, watchOptionsAdaptor, watchOptionsShimmerRecyclerView);
         voting = getIntent().getStringExtra("rating");
         synopsis = getIntent().getStringExtra("overview");
         overview.setText(synopsis);
-
-
-
 
         Toast.makeText(this, "Loading Watch Options Please wait a sec", Toast.LENGTH_SHORT).show();
     }

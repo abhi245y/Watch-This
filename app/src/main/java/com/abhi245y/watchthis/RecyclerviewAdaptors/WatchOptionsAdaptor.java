@@ -28,6 +28,7 @@ public class WatchOptionsAdaptor extends RecyclerView.Adapter<WatchOptionsAdapto
 
     ArrayList<WatchOptionsModel> watchOptionsModels;
     Context context;
+    int id = 0;
 
     public WatchOptionsAdaptor(ArrayList<WatchOptionsModel> watchOptionsModels, Context context) {
         this.watchOptionsModels = watchOptionsModels;
@@ -46,12 +47,15 @@ public class WatchOptionsAdaptor extends RecyclerView.Adapter<WatchOptionsAdapto
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         WatchOptionsModel watchOptions = watchOptionsModels.get(position);
-        Log.d("MovieCardActivity","Service Link: "+watchOptions.getService_link());
+
         if (watchOptions.getService_name().equals("justWatch")){
+            Log.d("WatchOptionsAdaptor","Adding Just Watch");
+            Log.d("WatchOptionsAdaptor","Service Name: "+watchOptions.getService_name());
+            id = watchOptions.getProvider_id();
             for (Entry services: Constants.getProviderId().entrySet()) {
                 if (services.getKey().equals(watchOptions.getProvider_id())) {
                     String service_image_url = "https://images.justwatch.com/icon/" + services.getValue() + "/s100";
-                    Log.d("MovieCardActivity", "Provider Id: " + services.getKey() + " service_image_url: " + service_image_url);
+                    Log.d("WatchOptionsAdaptor", "Provider Id: " + services.getKey() + " service_image_url: " + service_image_url);
 
                     String monetization_type = watchOptions.getMonetization_type();
 
@@ -61,7 +65,8 @@ public class WatchOptionsAdaptor extends RecyclerView.Adapter<WatchOptionsAdapto
                                 .fitCenter()
                                 .into(holder.service_image);
                         holder.monetization_type_text.setText(R.string.Stream);
-                    } else {
+                    }else if(monetization_type.equals("free")){
+                        Log.d("WatchOptionsAdaptor","monetization_type: "+monetization_type);
                         Glide.with(context)
                                 .load(service_image_url)
                                 .fitCenter()
@@ -71,6 +76,8 @@ public class WatchOptionsAdaptor extends RecyclerView.Adapter<WatchOptionsAdapto
                 }
             }
         }else if (watchOptions.getService_name().equals("telegram")){
+            Log.d("WatchOptionsAdaptor","Adding Telegram");
+            Log.d("WatchOptionsAdaptor","Service Name: "+watchOptions.getService_name());
             holder.service_image.setBackgroundResource(R.drawable.telegram);
             holder.monetization_type_text.setText("Telegram");
         }
@@ -78,7 +85,7 @@ public class WatchOptionsAdaptor extends RecyclerView.Adapter<WatchOptionsAdapto
         holder.service_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("MovieCardActivity","Provider Id: "+watchOptions.getProvider_id()+" Service Link: "+watchOptions.getService_link());
+                Log.d("WatchOptionsAdaptor","Provider Id: "+watchOptions.getProvider_id()+" Service Link: "+watchOptions.getService_link());
                 if (watchOptions.getService_name().equals("justWatch")) {
                     ServiceLauncher(watchOptions.getProvider_id(), watchOptions.getService_link());
                 }else if (watchOptions.getService_name().equals("telegram")){
@@ -89,7 +96,6 @@ public class WatchOptionsAdaptor extends RecyclerView.Adapter<WatchOptionsAdapto
 
             }
         });
-
     }
 
     private void ServiceLauncher(int provider_id, String service_link) {
