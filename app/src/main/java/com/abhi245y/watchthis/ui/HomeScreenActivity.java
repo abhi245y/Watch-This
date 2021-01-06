@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.abhi245y.watchthis.BuildConfig;
 import com.abhi245y.watchthis.Extra.Constants;
 import com.abhi245y.watchthis.Extra.EndlessRecyclerViewScrollListener;
 import com.abhi245y.watchthis.Extra.MovieItemClickListener;
@@ -104,15 +105,14 @@ public class HomeScreenActivity extends AppCompatActivity implements MovieItemCl
         homeHorizontalViewAdaptor  = new HomeHorizontalViewAdaptor(this,singleMovieInfo, this);
         LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
-        searchRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        searchRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         searchHomeViewAdaptor = new SearchHomeViewAdaptor(this, searchResultInfo, this) ;
         searchRecyclerView.setAdapter(searchHomeViewAdaptor);
 
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                Log.d("MainActivity","Page in Load More: "+page);
-                generateList(1+page);
+                generateList(2+page);
             }
         };
 
@@ -160,7 +160,7 @@ public class HomeScreenActivity extends AppCompatActivity implements MovieItemCl
                     singleMovieInfo.clear();
                     singleMovieInfo.addAll(emptyList);
                     homeHorizontalViewAdaptor.notifyDataSetChanged();
-                    generateList(1);
+                    generateList(2);
                 }else{
                     pullToRefresh.setRefreshing(false);
                 }
@@ -203,7 +203,6 @@ public class HomeScreenActivity extends AppCompatActivity implements MovieItemCl
                             });
                         }
                         shimmerRecycler.hideShimmerAdapter();
-
 
                     } else {
                         searchTmdb(page, movie_name);
@@ -251,6 +250,7 @@ public class HomeScreenActivity extends AppCompatActivity implements MovieItemCl
         });
     }
     private void generateList(int page) {
+        Log.d("MainActivity","Page in Load More: "+page);
         TMDbService tmDbService = RetrofitBuild.getRetrofitTMDb().create(TMDbService.class);
         Call<TMDbPopularModel> tmDbPopularModelCall = tmDbService.getTMDbPopular("popular",Constants.getTMDb_API_KEY(),"en-US",page,"IN");
 
