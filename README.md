@@ -3,3 +3,5 @@ An android app to keep track of your movie and tv show list.You can add the movi
 
 ## Installation
 This app is still in development stage.
+
+Feel free to download the source code and complie it for your self ;). I will release the apk once it ready
